@@ -14,8 +14,7 @@ int input_dynamic_arr(int ***arr, int arr_size_first, int arr_size_second);
 void output_static_arr(int arr[][NMAX], int arr_size_first, int arr_size_second);
 
 int main() {
-    int static_arr[NMAX][NMAX], select_arr, dynamic_arr_size_first, dynamic_arr_size_second, arr_size_first,
-        arr_size_second;
+    int static_arr[NMAX][NMAX], select_arr, arr_size_first, arr_size_second;
     int **dynamic_arr, *val_arr;
     if (input_select_arr(&select_arr) == 1) {
         printf("n/a");
@@ -33,6 +32,7 @@ int main() {
                 return 1;
             }
             output_static_arr(static_arr, arr_size_first, arr_size_second);
+            break;
         case 2:
             if (input_arr_size(&arr_size_first, &arr_size_second) == 1) {
                 printf("n/a");
@@ -45,6 +45,7 @@ int main() {
             }
             output_dynamic_arr(dynamic_arr, arr_size_first, arr_size_second);
             free(dynamic_arr);
+            break;
         case 3:
             if (input_arr_size(&arr_size_first, &arr_size_second) == 1) {
                 printf("n/a");
@@ -58,6 +59,7 @@ int main() {
             output_dynamic_arr(dynamic_arr, arr_size_first, arr_size_second);
             for (int i = 0; i < arr_size_first; i++) free(dynamic_arr[i]);
             free(dynamic_arr);
+            break;
         case 4:
             if (input_arr_size(&arr_size_first, &arr_size_second) == 1) {
                 printf("n/a");
@@ -69,8 +71,11 @@ int main() {
                 return 1;
             }
             output_dynamic_arr(dynamic_arr, arr_size_first, arr_size_second);
-            free(val_arr);
             free(dynamic_arr);
+            free(val_arr);
+            break;
+        default:
+            break;
     }
 }
 
@@ -95,9 +100,6 @@ int input_arr_size(int *arr_size_first, int *arr_size_second) {
 }
 
 int input_static_arr(int arr[][NMAX], int arr_size_first, int arr_size_second) {
-    char ch;
-    int error_check = 0;
-
     for (int i = 0; i < arr_size_first; i++) {
         for (int j = 0; j < arr_size_second; j++) {
             if (scanf("%d", &arr[i][j]) != 1) {
@@ -110,6 +112,8 @@ int input_static_arr(int arr[][NMAX], int arr_size_first, int arr_size_second) {
             return 1;
         }
     }
+
+    return 0;
 }
 
 void output_static_arr(int arr[][NMAX], int arr_size_first, int arr_size_second) {
@@ -141,6 +145,8 @@ int input_dynamic_arr(int ***arr, int arr_size_first, int arr_size_second) {
             return 1;
         }
     }
+
+    return 0;
 }
 
 void output_dynamic_arr(int **arr, int arr_size_first, int arr_size_second) {
