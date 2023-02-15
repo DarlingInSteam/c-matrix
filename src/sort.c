@@ -10,10 +10,12 @@ int main() {
     int *data = input(&n);
     if (data == NULL) {
         printf("n/a");
+        free(data);
         return 1;
     } else {
         sorting_array(data, n);
         output(data, n);
+        free(data);
     }
 }
 
