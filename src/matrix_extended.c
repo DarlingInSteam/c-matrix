@@ -1,3 +1,17 @@
+//прописать функцию мин макс для статических массивов
+//добавить ее во все кейсы и проверить
+//проверить утечку данных и проверку ввода
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 #include <stdio.h>
 #include <stdlib.h>
 #define NMAX 100
@@ -13,7 +27,7 @@ void output_dynamic_arr(int **arr, int arr_size_first, int arr_size_second);
 int input_dynamic_arr(int ***arr, int arr_size_first, int arr_size_second);
 void output_static_arr(int arr[][NMAX], int arr_size_first, int arr_size_second);
 void detected_max(int **arr, int *result, int arr_size_first, int arr_size_second);
-void detected_min(int **arr, int *result, int arr_size_first, int arr_size_second); 
+void detected_min(int **arr, int *result, int arr_size_first, int arr_size_second);
 
 int main() {
     int static_arr[NMAX][NMAX], select_arr, arr_size_first, arr_size_second;
@@ -62,6 +76,8 @@ int main() {
                 return 1;
             }
             output_dynamic_arr(dynamic_arr, arr_size_first, arr_size_second);
+            detected_max(dynamic_arr, result_max, arr_size_first, arr_size_second);
+            detected_min(dynamic_arr, result_min, arr_size_first, arr_size_second);
             for (int i = 0; i < arr_size_first; i++) free(dynamic_arr[i]);
             free(dynamic_arr);
             break;
@@ -76,6 +92,8 @@ int main() {
                 return 1;
             }
             output_dynamic_arr(dynamic_arr, arr_size_first, arr_size_second);
+            detected_max(dynamic_arr, result_max, arr_size_first, arr_size_second);
+            detected_min(dynamic_arr, result_min, arr_size_first, arr_size_second);
             free(dynamic_arr);
             free(val_arr);
             break;
@@ -209,7 +227,7 @@ void detected_max(int **arr, int *result, int arr_size_first, int arr_size_secon
 
     for (int i = 0; i < count; i++) {
         printf("%d", result[i]);
-        
+
         if (i + 1 < count) {
             printf(" ");
         }
@@ -232,7 +250,7 @@ void detected_min(int **arr, int *result, int arr_size_first, int arr_size_secon
 
     for (int i = 0; i < count; i++) {
         printf("%d", result[i]);
-        
+
         if (i + 1 < count) {
             printf(" ");
         }
