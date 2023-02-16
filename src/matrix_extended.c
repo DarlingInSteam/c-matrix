@@ -28,6 +28,8 @@ int input_dynamic_arr(int ***arr, int arr_size_first, int arr_size_second);
 void output_static_arr(int arr[][NMAX], int arr_size_first, int arr_size_second);
 void detected_max(int **arr, int *result, int arr_size_first, int arr_size_second);
 void detected_min(int **arr, int *result, int arr_size_first, int arr_size_second);
+void detected_max_static(int arr[][NMAX], int *result, int arr_size_first, int arr_size_second);
+void detected_min_static(int arr[][NMAX], int *result, int arr_size_first, int arr_size_second);
 
 int main() {
     int static_arr[NMAX][NMAX], select_arr, arr_size_first, arr_size_second;
@@ -49,6 +51,8 @@ int main() {
                 return 1;
             }
             output_static_arr(static_arr, arr_size_first, arr_size_second);
+            detected_max_static(static_arr, result_max, arr_size_first, arr_size_second);
+            detected_min_static(static_arr, result_min, arr_size_first, arr_size_second);
             break;
         case 2:
             if (input_arr_size(&arr_size_first, &arr_size_second) == 1) {
@@ -115,7 +119,8 @@ int input_select_arr(int *operation) {
 int input_arr_size(int *arr_size_first, int *arr_size_second) {
     char ch1, ch2;
     int error_check = 0;
-    if (scanf("%d%c %d%c", arr_size_first, &ch1, arr_size_second, &ch2) != 4 || ch1 != ' ' || ch2 != '\n') {
+    if (scanf("%d%c %d%c", arr_size_first, &ch1, arr_size_second, &ch2) != 4 || ch1 != ' ' || ch2 != '\n' ||
+        *arr_size_first <= 0 || *arr_size_second <= 0) {
         error_check = 1;
     }
 
@@ -235,6 +240,52 @@ void detected_max(int **arr, int *result, int arr_size_first, int arr_size_secon
 }
 
 void detected_min(int **arr, int *result, int arr_size_first, int arr_size_second) {
+    int count = 0;
+
+    for (int i = 0; i < arr_size_second; i++) {
+        int min = arr[i][0];
+        for (int j = 0; j < arr_size_first; j++) {
+            if (min > arr[j][i]) min = arr[j][i];
+        }
+        result[count] = min;
+        count += 1;
+    }
+
+    printf("\n");
+
+    for (int i = 0; i < count; i++) {
+        printf("%d", result[i]);
+
+        if (i + 1 < count) {
+            printf(" ");
+        }
+    }
+}
+
+void detected_max_static(int arr[][NMAX], int *result, int arr_size_first, int arr_size_second) {
+    int count = 0;
+
+    for (int i = 0; i < arr_size_first; i++) {
+        int max = arr[i][0];
+        for (int j = 0; j < arr_size_second; j++) {
+            if (max < arr[i][j]) max = arr[i][j];
+        }
+        result[count] = max;
+        count += 1;
+    }
+
+    printf("\n");
+
+    for (int i = 0; i < count; i++) {
+        printf("%d", result[i]);
+
+        if (i + 1 < count) {
+            printf(" ");
+        }
+    }
+}
+
+void detected_min_static(int arr[][NMAX], int *result, int arr_size_first, int arr_size_second) {
     int count = 0;
 
     for (int i = 0; i < arr_size_second; i++) {
