@@ -1,17 +1,3 @@
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//проверить утечку данных и проверку ввода
-
 #include <stdio.h>
 #include <stdlib.h>
 #define NMAX 100
@@ -55,6 +41,8 @@ int main() {
             dynamic_arr_first_type(&dynamic_arr, arr_size_first, arr_size_second);
             if (input_dynamic_arr(&dynamic_arr, arr_size_first, arr_size_second) == 1) {
                 printf("n/a");
+                output_dynamic_arr(dynamic_arr, arr_size_first, arr_size_second);
+                free(dynamic_arr);
                 return 1;
             }
             output_dynamic_arr(dynamic_arr, arr_size_first, arr_size_second);
@@ -68,6 +56,8 @@ int main() {
             dynamic_arr_second_type(&dynamic_arr, arr_size_first, arr_size_second);
             if (input_dynamic_arr(&dynamic_arr, arr_size_first, arr_size_second) == 1) {
                 printf("n/a");
+                for (int i = 0; i < arr_size_first; i++) free(dynamic_arr[i]);
+                free(dynamic_arr);
                 return 1;
             }
             output_dynamic_arr(dynamic_arr, arr_size_first, arr_size_second);
@@ -82,6 +72,8 @@ int main() {
             dynamic_arr_third_type(&dynamic_arr, &val_arr, arr_size_first, arr_size_second);
             if (input_dynamic_arr(&dynamic_arr, arr_size_first, arr_size_second) == 1) {
                 printf("n/a");
+                free(dynamic_arr);
+                free(val_arr);
                 return 1;
             }
             output_dynamic_arr(dynamic_arr, arr_size_first, arr_size_second);
@@ -106,7 +98,8 @@ int input_select_arr(int *operation) {
 int input_arr_size(int *arr_size_first, int *arr_size_second) {
     char ch1, ch2;
     int error_check = 0;
-    if (scanf("%d%c %d%c", arr_size_first, &ch1, arr_size_second, &ch2) != 4 || ch1 != ' ' || ch2 != '\n') {
+    if (scanf("%d%c %d%c", arr_size_first, &ch1, arr_size_second, &ch2) != 4 || ch1 != ' ' || ch2 != '\n' ||
+        *arr_size_first <= 0 || *arr_size_second <= 0) {
         error_check = 1;
     }
 
